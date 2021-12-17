@@ -1,44 +1,29 @@
 syntax = "proto3";
 
-package derailleur;
+package bicycle;
 
 option go_package = "./proto;derailleur";
 
 service Derailleur {
-	rpc Call(CallRequest) returns (CallResponse) {}
-	rpc ClientStream(stream ClientStreamRequest) returns (ClientStreamResponse) {}
-	rpc ServerStream(ServerStreamRequest) returns (stream ServerStreamResponse) {}
-	rpc BidiStream(stream BidiStreamRequest) returns (stream BidiStreamResponse) {}
+  rpc CreateDerailleur(CreateDerailleurRequest)
+		returns (CreateDerailleurResponse);
 }
 
-message CallRequest {
-	string name = 1;
+message CreateDerailleurRequest {
+  string frame_id = 1;
+  string manufacturer = 2;
+  string speed  = 3;
+  string model = 4;
 }
 
-message CallResponse {
-	string msg = 1;
+message CreateDerailleurResponse {
+  BikeDerailleur derailleur = 1;
 }
 
-message ClientStreamRequest {
-	int64 stroke = 1;
-}
-
-message ClientStreamResponse {
-	int64 count = 1;
-}
-
-message ServerStreamRequest {
-	int64 count = 1;
-}
-
-message ServerStreamResponse {
-	int64 count = 1;
-}
-
-message BidiStreamRequest {
-	int64 stroke = 1;
-}
-
-message BidiStreamResponse {
-	int64 stroke = 1;
+message BikeDerailleur {
+  string id = 1;
+  string frame_id = 2;
+  string manufacturer = 3;
+  string speed = 4;
+  string model = 5;
 }
